@@ -32,9 +32,9 @@ def ensure_dependencies():
                 print('pip not found or not reachable!')
                 print('Please make sure the following modules are installed using pip:')
                 print(*dependencies)
-    print('--------------------------')
-    print('Dependencies are installed')
-    print('--------------------------')
+        print('--------------------------')
+        print('Dependencies are installed')
+        print('--------------------------')
                 
 def ensure_pip():
     try:
