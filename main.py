@@ -8,6 +8,67 @@ from tabulate import tabulate as table
 # For import current data in order to get today's time-table from the website
 from datetime import date as dt
 
+# Installing Dependencies
+import os
+import sys
+import subprocess
+
+def ensure_dependencies():
+    # Looks for '.ensure_dependencies' in the root folder
+    if not '.ensure_dependencies' in os.listdir():
+        print('.ensure_dependencies not found in the root directory. Installing dependencies... (Only for the first execution)')
+        with open('.ensure_dependencies','w+') as file: file.write('True')
+        ensure_pip()
+        dependencies = ['requests', 'tabulate']
+        for package in dependencies:
+            try: subprocess.check_call(["pip","show",package])
+            except subprocess.CalledProcessError:
+                print(f"{package} is not installed. Installing...")
+                try:
+                    subprocess.check_call(["pip", "install", package])
+                    print(f"{package} installed successfully.")
+                except: print(f"Failed to install {package}")
+            except FileNotFoundError:
+                print('pip not found or not reachable!')
+                print('Please make sure the following modules are installed using pip:')
+                print(*dependencies)
+    print('--------------------------')
+    print('Dependencies are installed')
+    print('--------------------------')
+                
+def ensure_pip():
+    try:
+        import pip
+        return True
+    except ImportError:
+        print("pip not installed! Installing..")
+        pass
+
+    py_version = sys.version_info[:2]
+    if py_version == (2,7): install_command = "ez_setup.py"
+    else: install_command = "get-pip.py"
+
+    # Downloading the pip installation script
+    url = f"https://bootstrap.pypa.io/{install_command}"
+    try: subprocess.check_call([sys.executable, "-m", "ensurepip"])
+    except subprocess.CalledProcessError: pass
+
+    try: 
+        import ensurepip
+        return
+    except subprocess.CalledProcessError:
+        try:
+            import urllib.request
+            with urllib.request.urlopen(url) as response:
+                script_content = response.read()
+                exec(script_content)
+        except Exception as e:
+            print("Failed to install pip", e)
+            sys.exit(1)
+    print("pip is now installed")
+    return True
+            
+
 # Request URL gathered from Network data at time-table.sicsr.ac.in; Manipulating the string according to today's date
 with open('./requestURL.txt','r') as url_file:
     request_url = url_file.read()
@@ -47,4 +108,5 @@ def display_results(dataset):
     print("Your college day starts from {} and ends at {}".format(dataset[0][2], dataset[-1][3]))
     print(table(dataset, headers = ["Lecture Name", "Room No.", "Start Time", "End Time", "Duration (in hrs)"], tablefmt='grid'))       # Printing the information in a table
 
+ensure_dependencies()
 display_results(process_data(results.text))

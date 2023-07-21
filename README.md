@@ -43,7 +43,7 @@ Currently this script displays lectures for **BBA-IT Div-B Sem-V** and **BBA-IT 
 ## 📝 To-Do List
 
 - [ ] Mobile-Version to work with Siri (iOS)
-- [ ] Check and auto-install dependencies
+- [x] Check and auto-install dependencies
 - [ ] Description for README.md
 - [ ] Choosing any other date
 
