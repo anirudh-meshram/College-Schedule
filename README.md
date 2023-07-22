@@ -1,3 +1,7 @@
+![screenshot](./screenshots/screenshot.jpg)
+
+<center>🎒 <i> Keep track of your college schedule right from your terminal! </i> 💻</center>
+
 ## Inspiration
 
 During my college days 🎒 , I have noticed a limitation in the existing PHP-based time-table website of my college. It only allowed users to view one schedule type at a time, either their Division or Elective Group's schedule. This inconvenience sparked my idea to create something compelling and user-friendly!
