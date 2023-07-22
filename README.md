@@ -38,13 +38,9 @@ Currently this script displays lectures for **BBA-IT Div-B Sem-V** and **BBA-IT 
 
    > After submitting the form, A Request URL gets generated under **Network** tab under **Developer Options**
 
-6. Replace the newly generated Request URL in the file `requestURL.txt` according to the given syntax:
+6. Replace the newly generated Request URL in the file `requestURL.txt`
 
-```
-[ Rest of the URL ] from_day={from_day}&from_month={from_month}&from_year={from_year}&to_day={to_day}&to_month={to_month}&to_year={to_year} [ Rest of the URL ]
-```
-
-7. Run `main.py` to install the dependencies and run the program.
+7. Run `main.py` to install the dependencies and run the program to view today's college schedule
 
 ## 📝 To-Do List
 

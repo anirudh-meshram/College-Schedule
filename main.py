@@ -75,7 +75,7 @@ from datetime import date as dt
 with open('./requestURL.txt','r') as url_file:
     request_url = url_file.read()
 
-request_url = request_url.format(from_day = str(int(dt.today().strftime('%d'))), from_month = str(int(dt.today().strftime('%m'))), from_year = str(int(dt.today().strftime('%Y'))), to_day = str(int(dt.today().strftime('%d'))), to_month = str(int(dt.today().strftime('%m'))), to_year = str(int(dt.today().strftime('%Y'))))
+request_url = request_url.replace(request_url[request_url.index('from_day'):request_url.index('&areamatch')],'from_day={from_day}&from_month={from_month}&from_year={from_year}&to_day={to_day}&to_month={to_month}&to_year={to_year}'.format(from_day = str(int(dt.today().strftime('%d'))), from_month = str(int(dt.today().strftime('%m'))), from_year = str(int(dt.today().strftime('%Y'))), to_day = str(int(dt.today().strftime('%d'))), to_month = str(int(dt.today().strftime('%m'))), to_year = str(int(dt.today().strftime('%Y')))))
 
 try: results = requests.get(request_url,timeout=5)                                 # Making the HTTP request
 except ConnectionError:
