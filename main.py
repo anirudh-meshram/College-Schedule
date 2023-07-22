@@ -22,6 +22,7 @@ def ensure_dependencies():
                 print('pip not found or not reachable!')
                 print('Please make sure the following modules are installed using pip:')
                 print(*dependencies)
+                sys.exit(1)
         print('--------------------------')
         print('Dependencies are installed')
         print('--------------------------')
