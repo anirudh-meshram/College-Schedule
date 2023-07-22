@@ -1,3 +1,17 @@
+## Inspiration
+
+During my college days 🎒 , I have noticed a limitation in the existing PHP-based time-table website of my college. It only allowed users to view one schedule type at a time, either their Division or Elective Group's schedule. This inconvenience sparked my idea to create something compelling and user-friendly!
+
+## Features
+
+Inspired by the limitations of the PHP-based website, I developed a Python script that makes viewing today's timetable a bit simpler. Here's what it can do:
+
+- **🔍 HTTP Request with Requests Library**: The script utilizes Python's 'requests' library to make HTTP requests and fetch the necessary CSV data from the time-table website.
+
+- **📊 Tabulate Library for Tabular Display**: Once the data is captured, my script uses the 'tabulate' library to process and present it in a neat and organized tabular format, making it user-friendly and visually appealing.
+
+- **🔄 Automatic Module Installation**: To ensure a seamless user experience, my script automatically downloads the required modules during its first execution, making it easy for anyone to set up and use.
+
 ## Requirements
 
 - [Python](https://python.org/downloads)
@@ -20,6 +34,8 @@
   ```python
   pip install tabulate
   ```
+
+> These dependencies are automatically installed on `main.py`'s first execution and is ensured by `.ensure_dependencies` in the project folder.
 
 ## Configuration
 
