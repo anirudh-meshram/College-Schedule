@@ -1,13 +1,3 @@
-# Using requests to make HTTP requests
-import requests
-from requests.exceptions import ConnectionError
-
-# For displaying the information in a table
-from tabulate import tabulate as table
-
-# For import current data in order to get today's time-table from the website
-from datetime import date as dt
-
 # Installing Dependencies
 import os
 import sys
@@ -35,6 +25,7 @@ def ensure_dependencies():
         print('--------------------------')
         print('Dependencies are installed')
         print('--------------------------')
+        os.system('cls') if os.name == 'nt' else os.system('clear')
                 
 def ensure_pip():
     try:
@@ -68,6 +59,17 @@ def ensure_pip():
     print("pip is now installed")
     return True
             
+ensure_dependencies() # Ensure dependencies
+
+# Using requests to make HTTP requests
+import requests
+from requests.exceptions import ConnectionError
+
+# For displaying the information in a table
+from tabulate import tabulate as table
+
+# For import current data in order to get today's time-table from the website
+from datetime import date as dt
 
 # Request URL gathered from Network data at time-table.sicsr.ac.in; Manipulating the string according to today's date
 with open('./requestURL.txt','r') as url_file:
@@ -108,5 +110,4 @@ def display_results(dataset):
     print("Your college day starts from {} and ends at {}".format(dataset[0][2], dataset[-1][3]))
     print(table(dataset, headers = ["Lecture Name", "Room No.", "Start Time", "End Time", "Duration (in hrs)"], tablefmt='grid'))       # Printing the information in a table
 
-ensure_dependencies()
 display_results(process_data(results.text))
