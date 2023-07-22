@@ -71,6 +71,7 @@ from tabulate import tabulate as table
 
 # For import current data in order to get today's time-table from the website
 from datetime import date as dt
+from datetime import datetime
 
 # Request URL gathered from Network data at time-table.sicsr.ac.in; Manipulating the string according to today's date
 with open('./requestURL.txt','r') as url_file:
@@ -99,9 +100,15 @@ def process_data(txt):
     return dataset                                                  # Return the processed data for displaying information
 
 def display_results(dataset):
+    if datetime.now() > datetime(datetime.now().year, datetime.now().month, datetime.now().day, int(dataset[-1][-2].split(':')[0]),int(dataset[-1][-2].split(':')[1]),int(dataset[-1][-2].split(':')[2])):
+        choice = input('As of now your lectures are over. Do you still wish to view your schedule?')
+        if choice == '' or choice == 'y' or choice == 'Y': pass
+        else:
+            print('Exiting...')
+            sys.exit(1)
     if len(dataset)==0:                                             # If no lectures are there today
         print("There are no lectures today.")
-        exit()
+        sys.exit(1)
     noOfLectures = len(dataset)                                     # For displaying the total number of lectures
     noOfHours = 0                                                   # Storing the number of hours
     for i in dataset: noOfHours += i[-1]                            # Calculating the total numbers of hours
