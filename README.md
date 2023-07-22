@@ -28,7 +28,7 @@ Currently this script displays lectures for **BBA-IT Div-B Sem-V** and **BBA-IT 
 > Ensure that you have a **code-editor** / **IDE** like [VSCode](https://code.visualstudio.com/download) installed on your system before proceeding further
 
 1. Go to [SICSR's Time-Table](http://time-table.sicsr.ac.in)
-2. Click on **Report** on Navigation Bar (On the left of Search Bar)
+2. Click **Report** on Navigation Bar (On the left of Search Bar)
 3. Choose your Divisions/Elective Groups that you want to fetch lectures from under **Match Type** (Use `Ctrl`-Click to select more than one type)
 
 ❗ **Ensure that `CSV` is selected under `Format`**
