@@ -37,6 +37,7 @@ def update(response):
                         return
                     with open(i['name'], 'w') as file:
                         file.write(remote)
+                        print(f"Succesfully downloaded {i['name']}")
         # Updating the existing content (except for other folders, update.py and dot-files)
         for i in response:
             if i['type'] == 'file' and i['name'][0] != '.' and i['name'] != 'update.py':
