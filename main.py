@@ -8,6 +8,7 @@ def update():
         subprocess.run(['python3', 'update.py'], check=True)
     except subprocess.CalledProcessError as e:
         print('Unable to run update.py : ',e)
+
 def ensure_dependencies():
     # Looks for '.ensure_dependencies' in the root folder
     if not '.ensure_dependencies' in os.listdir():

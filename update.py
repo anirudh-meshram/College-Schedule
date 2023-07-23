@@ -25,7 +25,7 @@ def update(response):
                     with open(__file__, 'w') as this:
                         this.write(remote)
                         print('Sucessfully updated update.py. Please run main.py again')
-                        return
+                        sys.exit(1)
         # Downloading missing files
         for i in response:
             if i['type'] == 'file' and i['name'][0] != '.' and i['name'] != 'update.py':
