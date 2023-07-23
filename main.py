@@ -3,6 +3,11 @@ import os
 import sys
 import subprocess
 
+def update():
+    try:
+        subprocess.run(['python3', 'update.py'], check=True)
+    except subprocess.CalledProcessError as e:
+        print('Unable to run update.py : ',e)
 def ensure_dependencies():
     # Looks for '.ensure_dependencies' in the root folder
     if not '.ensure_dependencies' in os.listdir():
@@ -100,15 +105,15 @@ def process_data(txt):
     return dataset                                                  # Return the processed data for displaying information
 
 def display_results(dataset):
+    if len(dataset)==0:                                             # If no lectures are there today
+        print("There are no lectures today.")
+        sys.exit(1)
     if datetime.now() > datetime(datetime.now().year, datetime.now().month, datetime.now().day, int(dataset[-1][-2].split(':')[0]),int(dataset[-1][-2].split(':')[1]),int(dataset[-1][-2].split(':')[2])):
         choice = input('As of now your lectures are over. Do you still wish to view your schedule?')
         if choice == '' or choice == 'y' or choice == 'Y': pass
         else:
             print('Exiting...')
             sys.exit(1)
-    if len(dataset)==0:                                             # If no lectures are there today
-        print("There are no lectures today.")
-        sys.exit(1)
     noOfLectures = len(dataset)                                     # For displaying the total number of lectures
     noOfHours = 0                                                   # Storing the number of hours
     for i in dataset: noOfHours += i[-1]                            # Calculating the total numbers of hours
@@ -118,4 +123,9 @@ def display_results(dataset):
     print("Your college day starts from {} and ends at {}".format(dataset[0][2], dataset[-1][3]))
     print(table(dataset, headers = ["Lecture Name", "Room No.", "Start Time", "End Time", "Duration (in hrs)"], tablefmt='grid'))       # Printing the information in a table
 
+if not 'update.py' in os.listdir():
+    print('update.py missing in root directory. Kindly download the latest project files from:')
+    print('https://github.com/anirudh-meshram/College-Schedule')
+else:
+    update()
 display_results(process_data(results.text))
