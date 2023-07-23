@@ -24,6 +24,17 @@ def update(response):
                     this.write(remote)
                     print('Sucessfully updated update.py. Please run main.py again')
                     return
+    # Downloading missing files
+    for i in response:
+        if i['type'] == 'file' and i['name'][0] != '.' and i['name'] != 'update.py':
+            if not i['name'] in os.listdir():
+                try:
+                    remote = requests.get(i['download_url']).text
+                except:
+                    print('Unable to access remote content, Skipping update...')
+                    return
+                with open(i['name'], 'w') as file:
+                    file.write(remote)
     # Updating the existing content (except for other folders, update.py and dot-files)
     for i in response:
         if i['type'] == 'file' and i['name'][0] != '.' and i['name'] != 'update.py':
@@ -38,16 +49,5 @@ def update(response):
                 with open(i['name'], 'w') as file:
                     file.write(remote)
                     print(f"Successfully updated {i['name']}")
-    # Downloading missing files
-    for i in response:
-        if i['type'] == 'file' and i['name'][0] != '.' and i['name'] != 'update.py':
-            if not i['name'] in os.listdir():
-                try:
-                    remote = requests.get(i['download_url']).text
-                except:
-                    print('Unable to access remote content, Skipping update...')
-                    return
-                with open(i['name'], 'w') as file:
-                    file.write(remote)
 
 update(getGithubContent('https://api.github.com/repos/anirudh-meshram/College-Schedule/contents/'))
