@@ -64,6 +64,69 @@ Currently this script displays lectures for **BBA-IT Div-B Sem-V** and **BBA-IT 
 
 ## 📝 To-Do List
 
+- As of 24/7/2023, I am working on a feature that lets the user choose their match type from the terminal itself, eliminating the need to follow the current configuration steps.
+
+> Current progress:
+
+```
+  S. No  Subject
+-------  --------------------------------
+      0  BCA (V) - Div. A
+      1  BCA (V) - Div. B
+      2  BCA (V) - Div. C
+      3  BCA (V) - Div. D
+      4  BCA (V) - Div. E
+      5  BCA (V) - Elective
+      6  BCA (III) - Div. A
+      7  BCA (III) - Div. B
+      8  BCA (III) - Div. C
+      9  BCA (III) - Div. D
+     10  BCA (III) - Div. E
+     11  BCA (III) - Div. F
+     12  BCA(Honours) (V) - Elective
+     13  BCA(Honours) (III) - Elective
+     14  BBA-IT (V) - Div. A
+     15  BBA-IT (V) - Div. B
+     16  BBA-IT (V) - Div. C
+     17  BBA-IT (V) - Elective
+     18  BBA-IT (III) - Div. A
+     19  BBA-IT (III) - Div. B
+     20  BBA-IT (III) - Div. C
+     21  BBA-IT (III) - Elective
+     22  BBA-IT(Honours) (III) - Elective
+     23  MSC-CA (I)
+     24  MSC-CA (III)
+     25  MSC-CA (III) - SD
+     26  MSC-CA (III) - DS
+     27  MBA-DT (I)
+     28  MBA-DT (III)
+     29  MBA-IT (I) - Div. A
+     30  MBA-IT (I) - Div. B
+     31  MBA-IT (III)
+     32  MBA-IT (III) - DA
+     33  MBA-IT (III) - ITIM
+     34  Meetups/Placement
+     35  EXAM
+     36  Elective
+     37  Common Batch
+     38  Guest Lecture
+     39  BBA-IT (I) - Div. A
+     40  BBA-IT (I) - Div. B
+     41  BBA-IT (I) - Div. C
+     42  BREAK
+     43  BCA (I) - Div. A
+     44  BCA (I) - Div. B
+     45  BCA (I) - Div. C
+     46  BCA (I) - Div. D
+     47  BCA (I) - Div. E
+     48  BCA (I) - Div. F
+     49  type.x
+     50  type.y
+     51  type.z
+Enter your choices separated by commas
+For example: 0,2        OR       1,3,5
+```
+
 - [ ] Mobile-Version to work with Siri (iOS)
 - [x] Check and auto-install dependencies
 - [ ] Description for README.md
