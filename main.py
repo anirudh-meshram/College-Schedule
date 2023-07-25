@@ -6,8 +6,16 @@ import subprocess
 def update():
     try:
         subprocess.run(['python3', 'update.py'], check=True)
-    except subprocess.CalledProcessError as e:
-        print('Unable to run update.py : ',e)
+    except:
+        print('Unable to run update.py')
+        sys.exit(1)
+
+def generateConfig():
+    try:
+        subprocess.run(['python3', 'match_type.py'], check=True)
+    except:
+        print('Unable to run match_type.py')
+        sys.exit(1)
 
 def ensure_dependencies():
     # Looks for '.ensure_dependencies' in the root folder
@@ -68,29 +76,6 @@ def ensure_pip():
             
 ensure_dependencies() # Ensure dependencies
 
-# Using requests to make HTTP requests
-import requests
-from requests.exceptions import ConnectionError
-
-# For displaying the information in a table
-from tabulate import tabulate as table
-
-# For import current data in order to get today's time-table from the website
-from datetime import date as dt
-from datetime import datetime
-
-# Request URL gathered from Network data at time-table.sicsr.ac.in; Manipulating the string according to today's date
-with open('./requestURL.txt','r') as url_file:
-    request_url = url_file.read()
-
-request_url = request_url.replace(request_url[request_url.index('from_day'):request_url.index('&areamatch')],'from_day={from_day}&from_month={from_month}&from_year={from_year}&to_day={to_day}&to_month={to_month}&to_year={to_year}'.format(from_day = str(int(dt.today().strftime('%d'))), from_month = str(int(dt.today().strftime('%m'))), from_year = str(int(dt.today().strftime('%Y'))), to_day = str(int(dt.today().strftime('%d'))), to_month = str(int(dt.today().strftime('%m'))), to_year = str(int(dt.today().strftime('%Y')))))
-
-try: results = requests.get(request_url,timeout=5)                                 # Making the HTTP request
-except ConnectionError:
-    print('Connection Error!')
-    exit()
-else: pass
-
 def process_data(txt):
     dataset = []
     lecture = txt.split('\n')                                       # Converting each lecture into a single element
@@ -129,4 +114,37 @@ if not 'update.py' in os.listdir():
     print('https://github.com/anirudh-meshram/College-Schedule')
 else:
     update()
+
+if not 'match_type.py' in os.listdir():
+    print('match_type.py missing in root directory. Kindly download the latest project files from:')
+    print('https://github.com/anirudh-meshram/College-Schedule')
+
+if not '.config' in os.listdir():
+    generateConfig()
+
+# Using requests to make HTTP requests
+import requests
+from requests.exceptions import ConnectionError
+
+# For displaying the information in a table
+from tabulate import tabulate as table
+
+# For import current data in order to get today's time-table from the website
+from datetime import date as dt
+from datetime import datetime
+
+config = open('.config', 'r').read()
+types = ''
+
+for i in config:
+    types+='&typematch%5B%5D='+i
+
+# Request URL gathered from Network data at time-table.sicsr.ac.in; Manipulating the string according to today's date
+request_url = 'http://time-table.sicsr.ac.in/report.php?from_day={day}&from_month={month}&from_year={year}&to_day={day}&to_month={month}&to_year={year}&areamatch=&roommatch={types}&namematch=&descrmatch=&creatormatch=&match_confirmed=2&output=0&output_format=1&sortby=s&sumby=d&phase=2&datatable=1'.format(day = datetime.now().day, month = datetime.now().month, year = datetime.now().year, types = types)
+
+try: results = requests.get(request_url,timeout=5)                                 # Making the HTTP request
+except:
+    print('Connection Error!')
+    sys.exit(1)
+
 display_results(process_data(results.text))
