@@ -8,19 +8,19 @@ def update():
         subprocess.run(['python3', 'update.py'], check=True)
     except:
         print('\033[31mUnable to run update.py\033[0m')
-        sys.exit(1)
+        sys.exit()
 
 def generateConfig():
     try:
         subprocess.run(['python3', 'match_type.py'], check=True)
     except:
         print('\033[31mUnable to run match_type.py\033[0m')
-        sys.exit(1)
+        sys.exit()
 
 def ensure_dependencies():
     # Looks for '.ensure_dependencies' in the root folder
     if not '.ensure_dependencies' in os.listdir():
-        print('.ensure_dependencies not found in the root directory. Installing dependencies... (Only for the first execution)')
+        print('\033[35m.ensure_dependencies not found in the root directory. Installing dependencies... (Only for the first execution)\033[0m')
         with open('.ensure_dependencies','w+', encoding = 'utf-8') as file: file.write('True')
         ensure_pip()
         dependencies = ['requests', 'tabulate', 'bs4']
@@ -36,7 +36,7 @@ def ensure_dependencies():
                 print('\033[31mERROR: pip not found or not reachable!\033[0m')
                 print('\033[31mPlease make sure the following modules are installed using pip:\033[0m')
                 print(*dependencies)
-                sys.exit(1)
+                sys.exit()
         print('--------------------------')
         print('\033[32mDependencies are installed\033[0m')
         print('--------------------------')
@@ -70,7 +70,7 @@ def ensure_pip():
                 exec(script_content)
         except Exception as e:
             print("\033[31mFailed to install pip:\033[0m", e)
-            sys.exit(1)
+            sys.exit()
     print("\033[32mpip is now installed\033[0m")
     return True
             
@@ -92,15 +92,15 @@ def process_data(txt):
 
 def display_results(dataset):
     if len(dataset)==0:                                             # If no lectures are there today
-        print("There are no lectures today.")
-        sys.exit(1)
+        print("\033[35mThere are no lectures today.\033[0m")
+        sys.exit()
     noOfLectures = len(dataset)                                     # For displaying the total number of lectures
     noOfHours = 0                                                   # Storing the number of hours
     for i in dataset: noOfHours += i[-1]                            # Calculating the total numbers of hours
-    print("Today is:", dt.today().strftime('%d-%m-%Y') if not datetime.now() > datetime(datetime.now().year, datetime.now().month, datetime.now().day, int(temp[-1][-2].split(':')[0]),int(temp[-1][-2].split(':')[1]),int(temp[-1][-2].split(':')[2])) else getNextDate().strftime('%d-%m-%Y'))             # Displaying the date in DD-MM-YYYY format
-    print("There are {} lectures today".format(noOfLectures))       # No. of Lectures
-    print("You have to attend {} hours today".format(noOfHours))    # No. of Hours
-    print("Your college day starts from {} and ends at {}".format(dataset[0][2], dataset[-1][3]))
+    print("Today is: \033[35m{}\033[0m".format(dt.today().strftime('%d-%m-%Y') if not datetime.now() > datetime(datetime.now().year, datetime.now().month, datetime.now().day, int(temp[-1][-2].split(':')[0]),int(temp[-1][-2].split(':')[1]),int(temp[-1][-2].split(':')[2])) else getNextDate().strftime('%d-%m-%Y')))             # Displaying the date in DD-MM-YYYY format
+    print("There are \033[35m{}\033[0m lectures today".format(noOfLectures))       # No. of Lectures
+    print("You have to attend \033[35m{}\033[35m hours today".format(noOfHours))    # No. of Hours
+    print("Your college day starts from \033[35m{}\033[0m and ends at {}".format(dataset[0][2], dataset[-1][3]))
     print(table(dataset, headers = ["Lecture Name", "Room No.", "Start Time", "End Time", "Duration (in hrs)"], tablefmt='grid'))       # Printing the information in a table
     print('\n\033[33m(If the table is not properly visible, Kindly zoom out till the table fits the terminal window ( Ctrl + - ))\033[0m')
 
@@ -145,7 +145,7 @@ request_url = 'http://time-table.sicsr.ac.in/report.php?from_day={day}&from_mont
 try: results = requests.get(request_url,timeout=5)                                 # Making the HTTP request
 except:
     print('\033[31mConnection Error!\033[0m')
-    sys.exit(1)
+    sys.exit()
 
 temp = process_data(results.text)
 if datetime.now() > datetime(datetime.now().year, datetime.now().month, datetime.now().day, int(temp[-1][-2].split(':')[0]),int(temp[-1][-2].split(':')[1]),int(temp[-1][-2].split(':')[2])):
@@ -155,7 +155,7 @@ if datetime.now() > datetime(datetime.now().year, datetime.now().month, datetime
     try: results = requests.get(request_url,timeout=5)                                 # Making the HTTP request
     except:
         print('\033[31mConnection Error!\033[0m')
-        sys.exit(1)
+        sys.exit()
     display_results(process_data(results.text))
 else:
     display_results(process_data(results.text))

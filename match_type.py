@@ -8,11 +8,11 @@ import os
 
 def generateData():
     try:
-        print('Loading...\n')
+        print('\033[35mLoading...\n\033[0m')
         page = requests.get('http://time-table.sicsr.ac.in/day.php?year={}&month={}&day={}&area=1&room=29'.format(dt.now().year, dt.now().month if str(dt.now().month).startswith('0') else str('0'+str(dt.now().month)), dt.now().day),timeout=5).text
     except:
         print('\033[31mERROR: Connection failed! Please try again!\033[0m')
-        sys.exit(1)
+        sys.exit()
     soup = bs(page, 'html.parser')
     options = soup.find(id='type').prettify().split('\n')
     for i in options:
