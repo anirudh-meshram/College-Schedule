@@ -126,7 +126,7 @@ def getGithubContent(url):
     try:
         response = requests.get(url, headers=headers)
     except:
-        print('\033[33mUnable to access remote content, Skipping update...\033[0m')
+        print('\033[31mUnable to access remote content, Skipping update...\033[0m')
         sys.exit()
     if response.ok: return response.json()
     else: return False
@@ -159,7 +159,7 @@ def update(response):
                         remote = requests.get(i['download_url']).text
                     except:
                         print('\033[31mUnable to access remote content, Skipping update...\033[0m')
-                        return
+                        sys.exit()
                     with open(i['name'], 'w', encoding = 'utf-8') as file:
                         file.write(remote)
                         print(f"\033[32mSuccesfully downloaded {i['name']}\033[0m")
@@ -171,7 +171,7 @@ def update(response):
                     remote = requests.get(i['download_url']).text
                 except:
                     print('\033[31mUnable to access remote content, Skipping update...\033[0m')
-                    return
+                    sys.exit()
                 with open(i['name'], 'r', encoding = 'utf-8') as this:
                     local = this.read()
                 if remote != local:
@@ -180,7 +180,7 @@ def update(response):
                         print(f"\033[32mSuccessfully updated {i['name']}\033[0m")
     else:
         print('\033[31mUnable to access remote content, Skipping update...\033[0m')
-        return
+        sys.exit()
 
 def process_data(txt):
     dataset = []
