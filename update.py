@@ -62,3 +62,4 @@ def update(response):
 
 update(getGithubContent('https://api.github.com/repos/anirudh-meshram/College-Schedule/contents/'))
 print('\033[31mUpdate successful! Please run main.py again\033[0m')
+sys.exit()
