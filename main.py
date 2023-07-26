@@ -136,14 +136,18 @@ def update(response):
         print('\033[32mChecking for updates...\033[0m')
 
         # Deleting files which are not in remote directory
-        files = []
+        remote = []
         for i in response:
             if i['type'] == 'file' and i['name'][0] != '.':
-                files.append(i['name'])
+                remote.append(i['name'])
 
+        local = []
         for i in os.listdir():
+            if i[0] != '.': local.append(i)
+
+        for i in local:
             if not os.path.isdir(i):
-                if not i in files:
+                if not i in remote:
                     os.remove(i)
                     print(f"\033[32mSucessfully deleted {i}\033[0m")
 
