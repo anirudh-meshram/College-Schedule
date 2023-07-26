@@ -9,7 +9,6 @@ def update():
     except:
         print('\033[31mUnable to run update.py\033[0m')
         sys.exit()
-    print('\033[32mUpdate successful! Please run main.py again\033[0m')
 
 def generateConfig():
     try:
