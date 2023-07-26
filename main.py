@@ -87,7 +87,7 @@ def process_data(txt):
     for i in lecture:
         details.append(i.split(','))                                # Splitting the list for only importing certain data
     for lecture in details:
-        dataset.append([lecture[0][:lecture[0].rindex('-')], lecture[2], lecture[3][0:8], lecture[4][0:8], int(lecture[5][0])])
+        dataset.append([lecture[0], lecture[2], lecture[3][0:8], lecture[4][0:8], int(lecture[5][0])])
     return dataset                                                  # Return the processed data for displaying information
 
 def display_results(dataset):
@@ -108,6 +108,7 @@ def display_results(dataset):
     print("You have to attend {} hours today".format(noOfHours))    # No. of Hours
     print("Your college day starts from {} and ends at {}".format(dataset[0][2], dataset[-1][3]))
     print(table(dataset, headers = ["Lecture Name", "Room No.", "Start Time", "End Time", "Duration (in hrs)"], tablefmt='grid'))       # Printing the information in a table
+    print('\n(If the table is not properly visible, Kindly zoom out till the table fits the terminal window ( Ctrl + - ))')
 
 if not 'update.py' in os.listdir():
     print('update.py missing in root directory. Kindly download the latest project files from:')
