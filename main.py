@@ -181,6 +181,7 @@ def update(response):
     else:
         print('\033[31mUnable to access remote content, Skipping update...\033[0m')
         sys.exit()
+    os.system('cls') if os.name == 'nt' else os.system('clear')
 
 def process_data(txt):
     dataset = []
@@ -210,7 +211,7 @@ def display_results(dataset):
     print(table(dataset, headers = ["Lecture Name", "Room No.", "Start Time", "End Time", "Duration (in hrs)"], tablefmt='grid'))       # Printing the information in a table
     print('\n\033[33m(If the table is not properly visible, Kindly zoom out till the table fits the terminal window ( Ctrl + - ))\033[0m')
 
-update(getGithubContent('https://api.github.com/repos/anirudh-meshram/College-Schedule/contents/'))
+update(getGithubContent('https://api.github.com/repos/anirudh-meshram/College-Schedule/contents/')) #update()
 
 if not '.config' in os.listdir():
     generateConfig()
