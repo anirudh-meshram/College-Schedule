@@ -49,7 +49,7 @@ def getChoice():
         confirm = input('\nConfirm? (Enter "y" to confirm, any other key to choose again)\n\n> ')
         if confirm != 'y' and confirm != 'Y': continue
         break
-    with open('.config', 'w+') as config:
+    with open('.config', 'w+', encoding='utf-8') as config:
         for i in choice:
             config.write(types[int(i)][0])
         os.system('cls') if os.name == 'nt' else os.system('clear')

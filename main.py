@@ -21,7 +21,7 @@ def ensure_dependencies():
     # Looks for '.ensure_dependencies' in the root folder
     if not '.ensure_dependencies' in os.listdir():
         print('.ensure_dependencies not found in the root directory. Installing dependencies... (Only for the first execution)')
-        with open('.ensure_dependencies','w+') as file: file.write('True')
+        with open('.ensure_dependencies','w+', encoding = 'utf-8') as file: file.write('True')
         ensure_pip()
         dependencies = ['requests', 'tabulate']
         for package in dependencies:
@@ -134,7 +134,7 @@ from tabulate import tabulate as table
 from datetime import date as dt
 from datetime import datetime
 
-config = open('.config', 'r').read()
+config = open('.config', 'r', encoding = 'utf-8').read()
 types = ''
 
 for i in config:

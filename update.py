@@ -19,10 +19,10 @@ def update(response):
                 except:
                     print('Unable to access remote content, Skipping update...')
                     return
-                with open(__file__, 'r') as this:
+                with open(__file__, 'r', encoding='utf-8') as this:
                     local = this.read()
                 if local != remote:
-                    with open(__file__, 'w') as this:
+                    with open(__file__, 'w' encoding = 'utf-8') as this:
                         this.write(remote)
                         print('Sucessfully updated update.py. Please run main.py again')
                         sys.exit(1)
@@ -35,7 +35,7 @@ def update(response):
                     except:
                         print('Unable to access remote content, Skipping update...')
                         return
-                    with open(i['name'], 'w') as file:
+                    with open(i['name'], 'w', encoding = 'utf-8') as file:
                         file.write(remote)
                         print(f"Succesfully downloaded {i['name']}")
         # Updating the existing content (except for other folders, update.py and dot-files)
@@ -46,10 +46,10 @@ def update(response):
                 except:
                     print('Unable to access remote content, Skipping update...')
                     return
-                with open(i['name'], 'r') as this:
+                with open(i['name'], 'r', encoding = 'utf-8') as this:
                     local = this.read()
                 if remote != local:
-                    with open(i['name'], 'w') as file:
+                    with open(i['name'], 'w', encoding = 'utf-8') as file:
                         file.write(remote)
                         print(f"Successfully updated {i['name']}")
     else:
