@@ -94,16 +94,10 @@ def display_results(dataset):
     if len(dataset)==0:                                             # If no lectures are there today
         print("There are no lectures today.")
         sys.exit(1)
-    if datetime.now() > datetime(datetime.now().year, datetime.now().month, datetime.now().day, int(dataset[-1][-2].split(':')[0]),int(dataset[-1][-2].split(':')[1]),int(dataset[-1][-2].split(':')[2])):
-        choice = input('As of now your lectures are over. Do you still wish to view your schedule?')
-        if choice == '' or choice == 'y' or choice == 'Y': pass
-        else:
-            print('\033[31mExiting...\033[0m')
-            sys.exit(1)
     noOfLectures = len(dataset)                                     # For displaying the total number of lectures
     noOfHours = 0                                                   # Storing the number of hours
     for i in dataset: noOfHours += i[-1]                            # Calculating the total numbers of hours
-    print("Today is:", dt.today().strftime('%d-%m-%Y'))             # Displaying the date in DD-MM-YYYY format
+    print("Today is:", dt.today().strftime('%d-%m-%Y') if not datetime.now() > datetime(datetime.now().year, datetime.now().month, datetime.now().day, int(temp[-1][-2].split(':')[0]),int(temp[-1][-2].split(':')[1]),int(temp[-1][-2].split(':')[2])) else getNextDate().strftime('%d-%m-%Y'))             # Displaying the date in DD-MM-YYYY format
     print("There are {} lectures today".format(noOfLectures))       # No. of Lectures
     print("You have to attend {} hours today".format(noOfHours))    # No. of Hours
     print("Your college day starts from {} and ends at {}".format(dataset[0][2], dataset[-1][3]))
@@ -131,8 +125,13 @@ from requests.exceptions import ConnectionError
 from tabulate import tabulate as table
 
 # For import current data in order to get today's time-table from the website
-from datetime import date as dt
+from datetime import date as dt, timedelta
 from datetime import datetime
+
+def getNextDate():
+    today = dt.today()
+    delta = timedelta(days = 1)
+    return today + delta
 
 config = open('.config', 'r', encoding = 'utf-8').read()
 types = ''
@@ -148,4 +147,15 @@ except:
     print('\033[31mConnection Error!\033[0m')
     sys.exit(1)
 
-display_results(process_data(results.text))
+temp = process_data(results.text)
+if datetime.now() > datetime(datetime.now().year, datetime.now().month, datetime.now().day, int(temp[-1][-2].split(':')[0]),int(temp[-1][-2].split(':')[1]),int(temp[-1][-2].split(':')[2])):
+    print("\033[35mAs of now your lectures are over. Showing time-table for tomorrow\033[0m\n")
+    tomorrow = getNextDate()
+    request_url = 'http://time-table.sicsr.ac.in/report.php?from_day={day}&from_month={month}&from_year={year}&to_day={day}&to_month={month}&to_year={year}&areamatch=&roommatch={types}&namematch=&descrmatch=&creatormatch=&match_confirmed=2&output=0&output_format=1&sortby=s&sumby=d&phase=2&datatable=1'.format(day = tomorrow.day, month = tomorrow.month, year = tomorrow.year, types = types)
+    try: results = requests.get(request_url,timeout=5)                                 # Making the HTTP request
+    except:
+        print('\033[31mConnection Error!\033[0m')
+        sys.exit(1)
+    display_results(process_data(results.text))
+else:
+    display_results(process_data(results.text))
