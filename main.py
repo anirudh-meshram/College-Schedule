@@ -99,8 +99,8 @@ def display_results(dataset):
     for i in dataset: noOfHours += i[-1]                            # Calculating the total numbers of hours
     print("Today is: \033[35m{}\033[0m".format(dt.today().strftime('%d-%m-%Y') if not datetime.now() > datetime(datetime.now().year, datetime.now().month, datetime.now().day, int(temp[-1][-2].split(':')[0]),int(temp[-1][-2].split(':')[1]),int(temp[-1][-2].split(':')[2])) else getNextDate().strftime('%d-%m-%Y')))             # Displaying the date in DD-MM-YYYY format
     print("There are \033[35m{}\033[0m lectures today".format(noOfLectures))       # No. of Lectures
-    print("You have to attend \033[35m{}\033[35m hours today".format(noOfHours))    # No. of Hours
-    print("Your college day starts from \033[35m{}\033[0m and ends at {}".format(dataset[0][2], dataset[-1][3]))
+    print("You have to attend \033[35m{}\033[35m hours today\033[0m".format(noOfHours))    # No. of Hours
+    print("Your college day starts from \033[35m{}\033[0m and ends at \033[35m{}\033[0m".format(dataset[0][2], dataset[-1][3]))
     print(table(dataset, headers = ["Lecture Name", "Room No.", "Start Time", "End Time", "Duration (in hrs)"], tablefmt='grid'))       # Printing the information in a table
     print('\n\033[33m(If the table is not properly visible, Kindly zoom out till the table fits the terminal window ( Ctrl + - ))\033[0m')
 
