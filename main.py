@@ -23,7 +23,7 @@ def ensure_dependencies():
         print('.ensure_dependencies not found in the root directory. Installing dependencies... (Only for the first execution)')
         with open('.ensure_dependencies','w+', encoding = 'utf-8') as file: file.write('True')
         ensure_pip()
-        dependencies = ['requests', 'tabulate']
+        dependencies = ['requests', 'tabulate', 'bs4']
         for package in dependencies:
             try: subprocess.check_call(["pip","show",package])
             except subprocess.CalledProcessError:
