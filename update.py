@@ -22,7 +22,7 @@ def update(response):
                 with open(__file__, 'r', encoding='utf-8') as this:
                     local = this.read()
                 if local != remote:
-                    with open(__file__, 'w' encoding = 'utf-8') as this:
+                    with open(__file__, 'w', encoding = 'utf-8') as this:
                         this.write(remote)
                         print('Sucessfully updated update.py. Please run main.py again')
                         sys.exit(1)

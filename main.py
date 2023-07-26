@@ -7,14 +7,14 @@ def update():
     try:
         subprocess.run(['python3', 'update.py'], check=True)
     except:
-        print('Unable to run update.py')
+        print('\033[31mUnable to run update.py\033[0m')
         sys.exit(1)
 
 def generateConfig():
     try:
         subprocess.run(['python3', 'match_type.py'], check=True)
     except:
-        print('Unable to run match_type.py')
+        print('\033[31mUnable to run match_type.py\033[0m')
         sys.exit(1)
 
 def ensure_dependencies():
@@ -27,18 +27,18 @@ def ensure_dependencies():
         for package in dependencies:
             try: subprocess.check_call(["pip","show",package])
             except subprocess.CalledProcessError:
-                print(f"{package} is not installed. Installing...")
+                print(f"\033[33m{package} is not installed. Installing...\033[0m")
                 try:
                     subprocess.check_call(["pip", "install", package])
-                    print(f"{package} installed successfully.")
-                except: print(f"Failed to install {package}")
+                    print(f"\033[32m{package} installed successfully.\033[0m")
+                except: print(f"\033[31mFailed to install {package}\033[0m")
             except FileNotFoundError:
-                print('pip not found or not reachable!')
-                print('Please make sure the following modules are installed using pip:')
+                print('\033[31mERROR: pip not found or not reachable!\033[0m')
+                print('\033[31mPlease make sure the following modules are installed using pip:\033[0m')
                 print(*dependencies)
                 sys.exit(1)
         print('--------------------------')
-        print('Dependencies are installed')
+        print('\033[32mDependencies are installed\033[0m')
         print('--------------------------')
         os.system('cls') if os.name == 'nt' else os.system('clear')
                 
@@ -47,7 +47,7 @@ def ensure_pip():
         import pip
         return True
     except ImportError:
-        print("pip not installed! Installing..")
+        print("\033[31mpip not installed! Installing..\033[0m")
         pass
 
     py_version = sys.version_info[:2]
@@ -69,9 +69,9 @@ def ensure_pip():
                 script_content = response.read()
                 exec(script_content)
         except Exception as e:
-            print("Failed to install pip", e)
+            print("\033[31mFailed to install pip:\033[0m", e)
             sys.exit(1)
-    print("pip is now installed")
+    print("\033[32mpip is now installed\033[0m")
     return True
             
 ensure_dependencies() # Ensure dependencies
@@ -98,7 +98,7 @@ def display_results(dataset):
         choice = input('As of now your lectures are over. Do you still wish to view your schedule?')
         if choice == '' or choice == 'y' or choice == 'Y': pass
         else:
-            print('Exiting...')
+            print('\033[31mExiting...\033[0m')
             sys.exit(1)
     noOfLectures = len(dataset)                                     # For displaying the total number of lectures
     noOfHours = 0                                                   # Storing the number of hours
@@ -108,16 +108,16 @@ def display_results(dataset):
     print("You have to attend {} hours today".format(noOfHours))    # No. of Hours
     print("Your college day starts from {} and ends at {}".format(dataset[0][2], dataset[-1][3]))
     print(table(dataset, headers = ["Lecture Name", "Room No.", "Start Time", "End Time", "Duration (in hrs)"], tablefmt='grid'))       # Printing the information in a table
-    print('\n(If the table is not properly visible, Kindly zoom out till the table fits the terminal window ( Ctrl + - ))')
+    print('\n\033[33m(If the table is not properly visible, Kindly zoom out till the table fits the terminal window ( Ctrl + - ))\033[0m')
 
 if not 'update.py' in os.listdir():
-    print('update.py missing in root directory. Kindly download the latest project files from:')
+    print('\033[31mERROR: update.py missing in root directory. Kindly download the latest project files from:\033[0m')
     print('https://github.com/anirudh-meshram/College-Schedule')
 else:
     update()
 
 if not 'match_type.py' in os.listdir():
-    print('match_type.py missing in root directory. Kindly download the latest project files from:')
+    print('\033[31mmatch_type.py missing in root directory. Kindly download the latest project files from:\033[0m')
     print('https://github.com/anirudh-meshram/College-Schedule')
 
 if not '.config' in os.listdir():
@@ -145,7 +145,7 @@ request_url = 'http://time-table.sicsr.ac.in/report.php?from_day={day}&from_mont
 
 try: results = requests.get(request_url,timeout=5)                                 # Making the HTTP request
 except:
-    print('Connection Error!')
+    print('\033[31mConnection Error!\033[0m')
     sys.exit(1)
 
 display_results(process_data(results.text))
