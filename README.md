@@ -1,3 +1,11 @@
+## 📢 Announcements
+
+#### Major Changes
+
+If you have downloaded this project on/before 26-07-23, Kindly download the latest .zip for this project.
+
+---
+
 ![screenshot](./screenshots/screenshot.jpg)
 
 🎒 <i> Keep track of your college schedule right from your terminal! </i> 💻
