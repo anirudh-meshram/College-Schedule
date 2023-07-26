@@ -28,7 +28,7 @@ def update(response):
                 if local != remote:
                     with open(__file__, 'w', encoding = 'utf-8') as this:
                         this.write(remote)
-                        print('\033[31mSucessfully updated update.py\033[0m')
+                        print('\033[32mSucessfully updated update.py\033[0m')
                         sys.exit()
         # Downloading missing files
         for i in response:
