@@ -93,7 +93,6 @@ def ensure_dependencies():
     # Looks for '.ensure_dependencies' in the root folder
     if not '.ensure_dependencies' in os.listdir():
         print('\033[35m.ensure_dependencies not found in the root directory. Installing dependencies... (Only for the first execution)\033[0m')
-        with open('.ensure_dependencies','w+', encoding = 'utf-8') as file: file.write('True')
         ensure_pip()
         dependencies = ['requests', 'tabulate', 'bs4']
         for package in dependencies:
@@ -112,6 +111,7 @@ def ensure_dependencies():
         print('--------------------------')
         print('\033[32mDependencies are installed\033[0m')
         print('--------------------------')
+        with open('.ensure_dependencies','w+', encoding = 'utf-8') as file: file.write('True')
         os.system('cls') if os.name == 'nt' else os.system('clear')
 
 ensure_dependencies() # Ensure dependencies
