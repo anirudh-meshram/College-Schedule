@@ -84,4 +84,4 @@ I have successfully eliminated the need to edit `requestURL.txt` by providing a 
 
 🎓 Symbiosis International (Deemed University)\
 💼 Nestlé | Symbiosis Centre for International Education\
-📄 [Resume / CV](https://docs.google.com/document/d/1SQmZThxn0mKaLps_HoCw5Z3Gz401DyPZiu7PNdt9KWQ)
+📄 [Resume / CV](https://drive.google.com/file/d/1bTS7RCmFyWjO-Z3ccNruI1xTjggePRGj/view?usp=sharing)
